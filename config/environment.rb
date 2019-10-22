@@ -2,6 +2,7 @@ require "bundler/setup"
 require "rest_client"
 require "digest"
 require "json"
+require_relative "../config.rb"
 
 Bundler.require
 

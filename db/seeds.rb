@@ -5,8 +5,8 @@
 
 comic_url = "http://gateway.marvel.com/v1/public/comics?limit=100"
 
-public_key = "bad3e27afbe8cc5b77908d525de93d87"
-private_key = "afbb28a7e54b8e8fdbb4e96f05cff5e8d3467ee7"
+public_key = CONFIG[:my_key]
+private_key = CONFIG[:secret_key]
 ts = Time.now.to_s
 
 # hash = md5(timestamp + private_key + public_key)
