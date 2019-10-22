@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2019_10_21_204142) do
   end
 
   create_table "comics", force: :cascade do |t|
-    t.string "name"
+    t.string "title"
     t.integer "issue_number"
     t.integer "page_count"
     t.float "price"

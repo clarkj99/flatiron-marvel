@@ -5,7 +5,7 @@ class CreateMarvelTables < ActiveRecord::Migration[5.2]
       t.text :description
     end
     create_table :comics do |t|
-      t.string :name
+      t.string :title
       t.integer :issue_number
       t.integer :page_count
       t.float :price
