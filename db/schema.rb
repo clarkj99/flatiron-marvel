@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_21_204142) do
+ActiveRecord::Schema.define(version: 2019_10_22_172805) do
 
-  create_table "character_comic", force: :cascade do |t|
+  create_table "character_comics", force: :cascade do |t|
     t.integer "character_id"
     t.integer "comic_id"
   end
 
-  create_table "character_creator", force: :cascade do |t|
+  create_table "character_creators", force: :cascade do |t|
     t.integer "character_id"
     t.integer "creator_id"
   end
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 2019_10_21_204142) do
     t.text "description"
   end
 
-  create_table "comic_creator", force: :cascade do |t|
+  create_table "comic_creators", force: :cascade do |t|
     t.integer "comic_id"
     t.integer "creator_id"
   end
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2019_10_21_204142) do
     t.integer "issue_number"
     t.integer "page_count"
     t.float "price"
+    t.text "description"
   end
 
   create_table "creators", force: :cascade do |t|

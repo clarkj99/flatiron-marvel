@@ -1,2 +1,2 @@
-class CharacterCreator < ActiveRecord::Base
+class ComicCreator < ActiveRecord::Base
 end

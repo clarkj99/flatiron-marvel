@@ -13,15 +13,15 @@ class CreateMarvelTables < ActiveRecord::Migration[5.2]
     create_table :creators do |t|
       t.string :full_name
     end
-    create_table :character_comic do |t|
+    create_table :character_comics do |t|
       t.integer :character_id
       t.integer :comic_id
     end
-    create_table :character_creator do |t|
+    create_table :character_creators do |t|
       t.integer :character_id
       t.integer :creator_id
     end
-    create_table :comic_creator do |t|
+    create_table :comic_creators do |t|
       t.integer :comic_id
       t.integer :creator_id
     end
