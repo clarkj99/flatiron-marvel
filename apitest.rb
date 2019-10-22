@@ -17,6 +17,8 @@ def api_response(url:, limit: 100, offset:) # Grabs the API url and asks for arg
   RestClient.get(request)
 end
 
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 puts "------"
 puts "working on comics ..."
 puts "------"
@@ -25,7 +27,7 @@ comic_url = "http://gateway.marvel.com/v1/public/comics?" # The url which grabs 
 
 counter = 0
 chunk_size = 5
-until counter == 3 #Loops however many times you need according to counter to grab all of our API data
+until counter == 3 #Loops however many times you need according to counter to grab all of our specific API data
   puts counter * chunk_size
   response = api_response(url: comic_url, limit: chunk_size, offset: chunk_size * counter)
 
@@ -54,15 +56,17 @@ until counter == 3 #Loops however many times you need according to counter to gr
   counter += 1
 end
 
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 puts "------"
 puts "working on characters ..."
 puts "------"
 
-character_url = "http://gateway.marvel.com/v1/public/characters?" # The url which grabs comic's API data.
+character_url = "http://gateway.marvel.com/v1/public/characters?" # The url which grabs character's API data.
 
 counter = 0
 chunk_size = 5
-until counter == 3 #Loops however many times you need according to counter to grab all of our API data
+until counter == 3 #Loops however many times you need according to counter to grab all of our specific API data
   puts counter * chunk_size
   response = api_response(url: character_url, limit: chunk_size, offset: chunk_size * counter)
 
@@ -77,11 +81,13 @@ until counter == 3 #Loops however many times you need according to counter to gr
   counter += 1
 end
 
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 puts "------"
 puts "working on creators ..."
 puts "------"
 
-creator_url = "http://gateway.marvel.com/v1/public/creators?" # The url which grabs comic's API data.
+creator_url = "http://gateway.marvel.com/v1/public/creators?" # The url which grabs creator's API data.
 
 counter = 0
 chunk_size = 5
