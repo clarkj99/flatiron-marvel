@@ -3,24 +3,36 @@
 
 require_relative "./config/environment"
 
+def api_response(url:, limit: 100, offset:)
+  # hash = md5(timestamp + private_key + public_key)
+  # API request = url + apikey + timestamp + hash
+
+  public_key = CONFIG[:my_key]
+  private_key = CONFIG[:secret_key]
+  ts = Time.now.to_s
+
+  md5 = Digest::MD5.hexdigest(ts + private_key + public_key)
+
+  request = "#{url}&apikey=#{public_key}&ts=#{ts}&hash=#{md5}&limit=#{limit}&offset=#{offset}"
+
+  RestClient.get(request)
+end
+
 puts "working..."
 
-comic_url = "http://gateway.marvel.com/v1/public/comics?limit=5"
-public_key = CONFIG[:my_key]
-private_key = CONFIG[:secret_key]
-ts = Time.now.to_s
+comic_url = "http://gateway.marvel.com/v1/public/comics?"
 
-# hash = md5(timestamp + private_key + public_key)
-# API request = url + apikey + timestamp + hash
+counter = 0
+chunk_size = 100
+until counter == 3
+  puts counter * chunk_size
+  response = api_response(url: comic_url, limit: chunk_size, offset: chunk_size * counter)
 
-md5 = Digest::MD5.hexdigest(ts + private_key + public_key)
-request = comic_url + "&apikey=" + public_key + "&ts=" + ts + "&hash=" + md5
+  results = JSON.parse(response)["data"]["results"]
 
-response = RestClient.get(request)
-
-results = JSON.parse(response)["data"]["results"]
-
-results.each do |comic|
-  a = comic["id"].to_s + " " + comic["title"] + " " + comic["issueNumber"].to_s + " " + comic["pageCount"].to_s + " " + comic["prices"][0]["price"].to_s
-  puts a
+  results.each do |comic|
+    a = comic["id"].to_s + " " + comic["title"] + " " + comic["issueNumber"].to_s + " " + comic["pageCount"].to_s + " " + comic["prices"][0]["price"].to_s
+    # puts a
+  end
+  counter += 1
 end
