@@ -19,27 +19,28 @@ end
 
 # ---- Comics ----
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------
-puts "Destroying Comics"
-Comic.destroy_all
-ComicCreator.destroy_all
-CharacterComic.destroy_all
+# 45632 Comic Records on Marvel
 
 puts "------"
 puts "working on comics ..."
 puts "------"
 
+Comic.destroy_all
+ComicCreator.destroy_all
+CharacterComic.destroy_all
+
 comic_url = "http://gateway.marvel.com/v1/public/comics?" # The url which grabs comic's API data.
 
 counter = 0
 chunk_size = 100
-until counter == 470 #Loops however many times you need according to counter to grab all of our specific API data
+until counter == 457 #Loops however many times you need according to counter to grab all of our specific API data
   puts counter * chunk_size
   response = api_response(url: comic_url, limit: chunk_size, offset: chunk_size * counter)
 
   results = JSON.parse(response)["data"]["results"]
 
   results.each do |comic|
-    p comic["id"]
+    # p comic["id"]
     Comic.find_or_create_by(id: comic["id"], title: comic["title"], description: comic["description"], issue_number: comic["issueNumber"], page_count: comic["pageCount"], price: comic["prices"][0]["price"])
     if comic["characters"]["available"] > 0
       comic["characters"]["items"].each do |character|
@@ -53,6 +54,57 @@ until counter == 470 #Loops however many times you need according to counter to 
         ComicCreator.find_or_create_by(comic_id: comic["id"], creator_id: creator["resourceURI"].split("/").last)
       end
     end
+  end
+
+  counter += 1
+end
+
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#1493 Characters on Marvel
+
+puts "------"
+puts "working on characters ..."
+puts "------"
+
+Character.destroy_all
+character_url = "http://gateway.marvel.com/v1/public/characters?" # The url which grabs character's API data.
+
+counter = 0
+chunk_size = 100
+until counter == 15 #Loops however many times you need according to counter to grab all of our specific API data
+  puts counter * chunk_size
+  response = api_response(url: character_url, limit: chunk_size, offset: chunk_size * counter)
+
+  results = JSON.parse(response)["data"]["results"]
+
+  results.each do |character|
+    # a = character["id"].to_s + " " + character["name"] + " " + character["description"]
+    Character.find_or_create_by(id: character["id"], name: character["name"], description: character["description"])
+  end
+
+  counter += 1
+end
+
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# 5212 Creator Records
+
+puts "------"
+puts "working on creators ..."
+puts "------"
+
+Creator.destroy_all
+creator_url = "http://gateway.marvel.com/v1/public/creators?" # The url which grabs creator's API data.
+
+counter = 0
+chunk_size = 100
+until counter == 53 #Loops however many times you need according to counter to grab all of our API data
+  puts counter * chunk_size
+  response = api_response(url: creator_url, limit: chunk_size, offset: chunk_size * counter)
+
+  results = JSON.parse(response)["data"]["results"]
+
+  results.each do |creator|
+    Creator.find_or_create_by(id: creator["id"], full_name: creator["fullName"])
   end
 
   counter += 1
