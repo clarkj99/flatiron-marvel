@@ -1,4 +1,4 @@
 class ComicCreator < ActiveRecord::Base
   belongs_to :comic
-  belongs to :creator
+  belongs_to :creator
 end
