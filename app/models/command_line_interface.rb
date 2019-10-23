@@ -99,23 +99,27 @@ class CommandLineInterface
 
     prompt = TTY::Prompt.new
     id = prompt.ask("Provide number in range: 1-13924?") { |id| id.in("1-13924") }
-    creator = Creator.find(id)
+    creator = Creator.find_by_id(id)
     # puts "Looking for Creator(#{id})"
-    answer = ""
-    prompt = TTY::Prompt.new
+    if creator != nil
+      answer = ""
+      prompt = TTY::Prompt.new
 
-    until answer == :back_menu
-      puts " Creator ##{creator["id"]}: #{creator["full_name"]}"
-      puts " Number of comics: " + creator.comics.count.to_s
-      puts " Number of characters: " + Creator.find(id).characters.count.to_s
+      until answer == :back_menu
+        puts " Creator ##{creator["id"]}: #{creator["full_name"]}"
+        puts " Number of comics: " + creator.comics.count.to_s
+        puts " Number of characters: " + Creator.find(id).characters.count.to_s
 
-      answer = prompt.select("Choose your destiny?") do |menu|
-        menu.choice "List the comics by #{creator["full_name"]}", :creator_comics_list
-        menu.choice "List the characters by #{creator["full_name"]}", :creator_characters_list
-        menu.choice "Back", :back_menu
+        answer = prompt.select("Choose your destiny?") do |menu|
+          menu.choice "List the comics by #{creator["full_name"]}", :creator_comics_list
+          menu.choice "List the characters by #{creator["full_name"]}", :creator_characters_list
+          menu.choice "Back", :back_menu
+        end
+
+        self.send(answer, creator)
       end
-
-      self.send(answer, creator)
+    else
+      puts "Creator id # #{id} was not found!!!!"
     end
   end
 
