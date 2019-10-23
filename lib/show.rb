@@ -4,10 +4,10 @@ require "tty-pager"
 require "tty-table"
 
 def show_comics_pager
-  pager = TTY::Pager::BasicPager.new
+  pager = TTY::Pager::SystemPager.new
 
-  data = Comic.limit(100).reduce("") do |s, comic|
-    s = s + comic["title"] + "\n"
+  data = Comic.all.limit(1000).inject("") do |s, comic|
+    s = s + comic["id"].to_s + "  " + comic["title"] + "\n"
   end
 
   pager.page(data)
@@ -34,14 +34,14 @@ def menu_selection
   ]
 
   prompt = TTY::Prompt.new
-  prompt.enum_select("Choose wisely!", choices)
+  prompt.select("Choose wisely!", choices)
 end
 
 def main_loop
   selection = ""
   until selection == :goodbye
     selection = menu_selection
-    self.send(selection)
+    send(selection)
   end
 end
 
