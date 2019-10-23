@@ -14,7 +14,7 @@ def show_comics_pager
 end
 
 def show_comics_table
-  data = Comic.limit(10).map do |comic|
+  data = Comic.limit(100).map do |comic|
     [comic["id"], comic["title"][0..20] + "...", comic["description"][0..20] + "..."]
   end
 
