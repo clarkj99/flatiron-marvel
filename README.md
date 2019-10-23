@@ -8,3 +8,4 @@ Ruby CLI to retrieve Marvel API data for characters, comics, and creators.
 # }
 # If you want any of the code to run. :^)
 
+# MUST BE IN FULLSCREEN TO RUN!

@@ -65,10 +65,14 @@ GEM
     tilt (2.0.10)
     tty-color (0.5.0)
     tty-cursor (0.7.0)
+<<<<<<< HEAD
     tty-pager (0.12.1)
       strings (~> 0.1.4)
       tty-screen (~> 0.6)
       tty-which (~> 0.4)
+=======
+    tty-font (0.4.0)
+>>>>>>> 02a44e91dd13a683ab09c1b684011522df155815
     tty-prompt (0.19.0)
       necromancer (~> 0.5.0)
       pastel (~> 0.7.0)
@@ -78,6 +82,7 @@ GEM
       tty-screen (~> 0.7)
       wisper (~> 2.0.0)
     tty-screen (0.7.0)
+<<<<<<< HEAD
     tty-table (0.11.0)
       equatable (~> 0.6)
       necromancer (~> 0.5)
@@ -85,13 +90,18 @@ GEM
       strings (~> 0.1.5)
       tty-screen (~> 0.7)
     tty-which (0.4.1)
+=======
+>>>>>>> 02a44e91dd13a683ab09c1b684011522df155815
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.6)
+<<<<<<< HEAD
     unicode-display_width (1.6.0)
     unicode_utils (1.4.0)
+=======
+>>>>>>> 02a44e91dd13a683ab09c1b684011522df155815
     wisper (2.0.1)
 
 PLATFORMS
@@ -99,15 +109,24 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord (~> 5.2.3)
+  pastel
   pry
   rake
   require_all
   rest-client
   sinatra-activerecord
   sqlite3
+<<<<<<< HEAD
   tty-pager
   tty-prompt
   tty-table
+=======
+  tty-cursor
+  tty-font
+  tty-prompt
+  tty-reader
+  tty-screen
+>>>>>>> 02a44e91dd13a683ab09c1b684011522df155815
 
 BUNDLED WITH
    2.0.2
