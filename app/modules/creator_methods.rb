@@ -1,15 +1,14 @@
 module CreatorMethods
   def creators_menu
-    print_page_title("Creators")
-    puts "The total number of Creators in the database: " + Creator.count.to_s
-
     answer = ""
     prompt = TTY::Prompt.new
 
     until answer == :back_menu
-      answer = prompt.select("Choose your destiny?") do |menu|
+      print_page_title("Creators")
+      puts "\n" + "The total number of Creators in the database: " + Creator.count.to_s
+      answer = prompt.select("\n" + "What about the Creators?") do |menu|
         menu.choice "List the Creators!", :creators_list
-        menu.choice "Search for Creators  by ID", :creators_by_id
+        menu.choice "Search for Creators by ID", :creators_by_id
         # menu.choice "Search for Creators  by Name", :creators_by_name
         menu.choice "Back", :back_menu
       end
@@ -30,7 +29,7 @@ module CreatorMethods
   def creator_characters_list(creator)
     print_page_title("List the Creator's Characters")
 
-    data = creator.characters.inject("") do |string, character|
+    data = creator.characters.order("name").inject("") do |string, character|
       string = string + character["id"].to_s + "  " + character["name"] + ": " + character["description"] + "\n"
     end
 
@@ -40,7 +39,7 @@ module CreatorMethods
   def creator_comics_list(creator)
     print_page_title("List the Creator's Comics")
 
-    data = creator.comics.inject("") do |string, comic|
+    data = creator.comics.order("title").inject("") do |string, comic|
       string = string + comic["id"].to_s + "  " + comic["title"] + " " + comic["issue_number"].to_s + " " + comic["page_count"].to_s + " pages" + " $" + comic["price"].to_s + "\n"
     end
 
@@ -67,9 +66,9 @@ module CreatorMethods
         puts " Number of comics: " + creator.comics.count.to_s
         puts " Number of characters: " + Creator.find(id).characters.count.to_s
 
-        answer = prompt.select("Choose your destiny?") do |menu|
+        answer = prompt.select("What would you like to know about #{creator["full_name"]}?") do |menu|
           menu.choice "List the comics by #{creator["full_name"]}", :creator_comics_list
-          menu.choice "List the characters by #{creator["full_name"]}", :creator_characters_list
+          menu.choice "List the characters created by #{creator["full_name"]}", :creator_characters_list
           menu.choice "Back", :back_menu
         end
 

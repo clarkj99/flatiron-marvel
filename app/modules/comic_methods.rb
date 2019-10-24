@@ -5,8 +5,8 @@ module ComicMethods
 
     until answer == :back_menu
       print_page_title("Comics")
-      puts "The total number of Comics in the database: " + Comic.count.to_s
-      answer = prompt.select("Choose your destiny?") do |menu|
+      puts "\n" + "The total number of Comics in the database: " + Comic.count.to_s
+      answer = prompt.select("\n" + "What about the Comics?") do |menu|
         menu.choice "List the Comics!", :comics_list
         menu.choice "Search for Comics by ID", :comics_by_id
         # menu.choice "Search for Comics  by Name", :comics_by_name
@@ -19,7 +19,7 @@ module ComicMethods
   def list_comics_by_chunk(start, chunk_size)
     print_page_title("List the Comics from #{start.to_s} to #{(start + chunk_size - 1).to_s}")
 
-    data = Comic.all.offset(start).limit(chunk_size).inject("") do |string, comic|
+    data = Comic.all.offset(start).limit(chunk_size).order("title").inject("") do |string, comic|
       string = string + formatted_comic(comic) + "\n"
     end
 
@@ -33,7 +33,7 @@ module ComicMethods
     until answer == :back_menu
       print_page_title("List the Comics By Chunk")
 
-      answer = prompt.select("Choose your destiny?") do |menu|
+      answer = prompt.select("Choose a chunk of Comics to go through") do |menu|
         menu.choice "List the comics from 0 to 9999", 0
         menu.choice "List the comics from 10,000 to 19,999", 10000
         menu.choice "List the comics from 20,000 to 29,999", 20000
@@ -53,7 +53,7 @@ module ComicMethods
   def comic_characters_list(comic)
     print_page_title("List the Comic's Characters")
 
-    data = comic.characters.inject("") do |string, character|
+    data = comic.characters.order("name").inject("") do |string, character|
       string = string + formatted_character(character) + "\n"
     end
 
@@ -83,9 +83,9 @@ module ComicMethods
       puts " Number of creators: " + comic.creators.count.to_s
       puts " Number of characters: " + comic.characters.count.to_s
 
-      answer = prompt.select("Choose your destiny?") do |menu|
-        menu.choice "List the creators related to #{comic["title"]}", :comic_creators_list
-        menu.choice "List the characters related to #{comic["title"]}", :comic_characters_list
+      answer = prompt.select("What would you like to know about #{comic["title"]}?") do |menu|
+        menu.choice "List the creators who worked on #{comic["title"]}", :comic_creators_list
+        menu.choice "List the characters that appear in #{comic["title"]}", :comic_characters_list
         menu.choice "Back", :back_menu
       end
 

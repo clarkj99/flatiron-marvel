@@ -5,10 +5,10 @@ module CharacterMethods
 
     until answer == :back_menu
       print_page_title("Characters")
-      puts "The total number of Characters in the database: " + Character.count.to_s
-      answer = prompt.select("Choose your destiny?") do |menu|
+      puts "\n" + "The total number of Characters in the database: " + Character.count.to_s
+      answer = prompt.select("\n" + "What about the Characters?") do |menu|
         menu.choice "List the Characters!", :characters_list
-        menu.choice "Search for Characters  by name", :characters_by_name
+        menu.choice "Search for Characters by name", :characters_by_name
         # menu.choice "Search for Creators  by Name", :creators_by_name
         menu.choice "Back", :back_menu
       end
@@ -19,7 +19,7 @@ module CharacterMethods
   def characters_list
     print_page_title("List the Characters")
 
-    data = Character.all.inject("") do |string, character|
+    data = Character.all.order("name").inject("") do |string, character|
       string = string + formatted_character(character) + "\n"
     end
 
@@ -39,7 +39,7 @@ module CharacterMethods
   def character_comics_list(character)
     print_page_title("List the Character's Comics")
 
-    data = character.comics.inject("") do |string, comic|
+    data = character.comics.order("title").inject("") do |string, comic|
       string = string + formatted_comic(comic) + "\n"
     end
 
@@ -64,9 +64,9 @@ module CharacterMethods
         puts " Number of comics: " + character.comics.count.to_s
         puts " Number of creators: " + character.creators.count.to_s
 
-        answer = prompt.select("Choose your destiny?") do |menu|
+        answer = prompt.select("What would you like to know about #{character["name"]}?") do |menu|
           menu.choice "List the comics including #{character["name"]}", :character_comics_list
-          menu.choice "List the characters including #{character["name"]}", :character_creators_list
+          menu.choice "List the creator(s) that worked on #{character["name"]}", :character_creators_list
           menu.choice "Back", :back_menu
         end
 

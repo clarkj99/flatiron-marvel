@@ -19,11 +19,11 @@ class CommandLineInterface
 
   def marvel_user_prompt
     prompt = TTY::Prompt.new
-    answer = prompt.select("Choose your destiny?") do |menu|
+    answer = prompt.select("Which would you like to know more about?") do |menu|
       menu.choice "Creators", :creators_menu
       menu.choice "Comics", :comics_menu
       menu.choice "Characters", :characters_menu
-      menu.choice "Exit", :exit_menu
+      menu.choice "Exit program", :exit_menu
     end
   end
 
@@ -63,7 +63,7 @@ class CommandLineInterface
   end
 
   def formatted_comic(comic)
-    comic["id"].to_s + "  " + comic["title"] + " " + comic["issue_number"].to_s + " " + comic["page_count"].to_s + " pages" + " $" + comic["price"].to_s
+    comic["id"].to_s + "  Title: " + comic["title"] + " / Issue #: " + comic["issue_number"].to_s + " / " + comic["page_count"].to_s + " pages" + " / Costs: $" + comic["price"].to_s
   end
 
   def formatted_character(character)
@@ -75,7 +75,7 @@ class CommandLineInterface
   end
 
   def back_menu(creator = nil)
-    puts Pastel.new.red("<-- Stay tuned, True Believers!  <--")
+    puts Pastel.new.red("--> Stay tuned, True Believers! <--")
   end
 
   def main_loop
