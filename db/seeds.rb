@@ -3,7 +3,8 @@
 # to get data and populate tables.
 # 'rake db:seed' to execute
 
-def api_response(url:, limit: 100, offset:) # Grabs the API url and asks for arguments of limit and offset to grab our data. Limit default to 100.
+def api_response(url:, limit: 100, offset:)
+  # Grabs the API url and asks for arguments of limit and offset to grab our data. Limit default to 100.
   # hash = md5(timestamp + private_key + public_key)
   # API request = url + apikey + timestamp + hash
   public_key = CONFIG[:my_key]
@@ -29,12 +30,14 @@ puts "------"
 #ComicCreator.destroy_all
 #CharacterComic.destroy_all
 
-comic_url = "http://gateway.marvel.com/v1/public/comics?" # The url which grabs comic's API data.
+comic_url = "http://gateway.marvel.com/v1/public/comics?"
+# The url which grabs comic's API data.
 
 # counter = 218
 counter = 0
 chunk_size = 100
-until (counter * chunk_size) > 45632 #Loops however many times you need according to counter to grab all of our specific API data
+until (counter * chunk_size) > 45632
+  #Loops however many times you need according to counter to grab all of our specific API data
   puts counter * chunk_size
   response = api_response(url: comic_url, limit: chunk_size, offset: chunk_size * counter)
 
@@ -67,11 +70,13 @@ puts "working on characters ..."
 puts "------"
 
 #Character.destroy_all
-character_url = "http://gateway.marvel.com/v1/public/characters?" # The url which grabs character's API data.
+character_url = "http://gateway.marvel.com/v1/public/characters?"
+# The url which grabs character's API data.
 
 counter = 0
 chunk_size = 100
-until (counter * chunk_size) > 1493 #Loops however many times you need according to counter to grab all of our specific API data
+until (counter * chunk_size) > 1493
+  #Loops however many times you need according to counter to grab all of our specific API data
   puts counter * chunk_size
   response = api_response(url: character_url, limit: chunk_size, offset: chunk_size * counter)
 
@@ -92,11 +97,13 @@ puts "working on creators ..."
 puts "------"
 
 #Creator.destroy_all
-creator_url = "http://gateway.marvel.com/v1/public/creators?" # The url which grabs creator's API data.
+creator_url = "http://gateway.marvel.com/v1/public/creators?"
+# The url which grabs creator's API data.
 
 counter = 0
 chunk_size = 100
-until (counter * chunk_size) > 5212 #Loops however many times you need according to counter to grab all of our API data
+until (counter * chunk_size) > 5212
+  #Loops however many times you need according to counter to grab all of our API data
   puts counter * chunk_size
   response = api_response(url: creator_url, limit: chunk_size, offset: chunk_size * counter)
 
@@ -107,4 +114,18 @@ until (counter * chunk_size) > 5212 #Loops however many times you need according
   end
 
   counter += 1
+end
+
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+puts "------"
+puts "working on character_creator join ..."
+puts "------"
+
+Character.all.each do |character|
+  character.comics.each do |comic|
+    comic.comic_creators.each do |comic_creator|
+      CharacterCreator.find_or_create_by(character_id: character["id"], creator_id: comic_creator["creator_id"])
+    end
+  end
 end
