@@ -4,10 +4,12 @@ require "tty-reader"
 require "tty-prompt"
 require_relative "../modules/creator_methods"
 require_relative "../modules/comic_methods"
+require_relative "../modules/character_methods"
 
 class CommandLineInterface
   include CreatorMethods
   include ComicMethods
+  include CharacterMethods
 
   def marvel_cool_text(string)
     pastel = Pastel.new
@@ -66,10 +68,6 @@ class CommandLineInterface
 
   def formatted_character(character)
     character["id"].to_s + "  " + character["name"] + ": " + character["description"]
-  end
-
-  def characters_menu
-    print_page_title("Characters")
   end
 
   def exit_menu
