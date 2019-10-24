@@ -1,14 +1,14 @@
-# flatiron-marvel
+# FLATIRON MARVEL API RUBY CLI
 Ruby CLI to retrieve Marvel API data for characters, comics, and creators.
 
 ## DESCRIPTION
-This work represents the tireless and devoted efforts of two remarkable Ruby developers:  Kuran Kumar, Clark Johnson.  It was developed as a Flatiron School project to answer some basic questions regarding the Marvel Comic Universe.  It polls the Marvel Developer API and use ActiveRecord to create a local sqlite3 database containing data for **comics**, **characters**, and **creators**. It also makes use of the [TTY gem][https://github.com/piotrmurach/tty] for enhanced CLI methods.
+This work represents the tireless and devoted efforts of two remarkable Ruby developers:  Kuran Kumar, Clark Johnson.  It was developed as a Flatiron School project to answer some basic questions regarding the Marvel Comic Universe.  It polls the Marvel Developer API and use ActiveRecord to create a local sqlite3 database containing data for **comics**, **characters**, and **creators**. It also makes use of the [TTY gem](https://github.com/piotrmurach/tty) for enhanced CLI methods.
 
 ## INSTALL INSTRUCTIONS
-This application uses data from the [Marvel Comics API][https://developer.marvel.com]. To seed your data, you'll need a [developer key][https://developer.marvel.com/documentation/getting_started]. 
+This application uses data from the [Marvel Comics API](https://developer.marvel.com). To seed your data, you'll need a [developer key](https://developer.marvel.com/documentation/getting_started). 
 Make sure to create "/.config.rb" file with contents:
 ```
-   CONFIG = {
+CONFIG = {
     my_key: "public_api_key"
     secret_key: "private_api_key"
  }
@@ -19,7 +19,7 @@ Make sure to create "/.config.rb" file with contents:
  bundle install
  rake DB:SEED 
  ```
- * * Note: to disable AcitveRecord Logging, add `ActiveRecord::Base.logger = nil` to your "./config/environment.rb"
+ *Note: to disable AcitveRecord Logging, add `ActiveRecord::Base.logger = nil` to your "./config/environment.rb"*
 
 When ready to run, just `ruby marvel.rb`.
  
@@ -28,8 +28,8 @@ When ready to run, just `ruby marvel.rb`.
  ## CONTRIBUTORS
 
  Made with love by
- * Kuran Kumar @kurankumar
- * J. Clark Johnson @clarkj99
+ * [Kuran Kumar @kurankumar](https://github.com/kurankumar)
+ * [J. Clark Johnson @clarkj99](https://github.com/clarkj99)
 
  ## LICENSE
 
