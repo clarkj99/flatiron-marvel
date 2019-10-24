@@ -1,12 +1,12 @@
 module CreatorMethods
   def creators_menu
-    print_page_title("Creators")
-    puts "The total number of Creators in the database: " + Creator.count.to_s
-
     answer = ""
     prompt = TTY::Prompt.new
-
     until answer == :back_menu
+      print_page_title("Creators")
+      puts "The total number of Creators in the database: " + Creator.count.to_s
+      puts print_creator_with_most_comics
+
       answer = prompt.select("Choose your destiny?") do |menu|
         menu.choice "List the Creators!", :creators_list
         menu.choice "Search for Creators  by ID", :creators_by_id
@@ -15,6 +15,12 @@ module CreatorMethods
       end
       send(answer)
     end
+  end
+
+  def print_creator_with_most_comics
+    result = ComicCreator.all.group(:creator_id).count.max_by { |k, v| v }
+    creator = Creator.find_by_id(result[0])
+    puts "Creater with most titles: " + formatted_creator(creator) + "  -  " + result[1].to_s + " titles\n"
   end
 
   def creators_list
@@ -47,9 +53,9 @@ module CreatorMethods
     show_pager(data)
   end
 
-  def creators_by_name
-    print_page_title("Find a Creator by Name")
-  end
+  # def creators_by_name
+  #   print_page_title("Find a Creator by Name")
+  # end
 
   def creators_by_id
     print_page_title("Find a Creator by ID")
