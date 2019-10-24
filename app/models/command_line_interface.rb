@@ -24,7 +24,7 @@ class CommandLineInterface
   end
 
   def show_help
-    puts " This is the help"
+    print_page_title(" This is the help")
   end
 
   def show_pager(data)
@@ -33,22 +33,33 @@ class CommandLineInterface
   end
 
   def print_page_title(string)
+    pastel = Pastel.new
     start_char = "="
     spacer_char = "-"
-    border_length = 30
+    border_length = string.length + 4
     border = start_char + Array.new(border_length, spacer_char).join + start_char
-    num_spaces = (border_length - string.length) / 2
-    puts border
-    puts spacer_char + Array.new(num_spaces, " ").join + string + Array.new(num_spaces, " ").join + spacer_char
-    puts border
+    puts pastel.bold(border)
+    puts pastel.bold(spacer_char + "  " + string.upcase + "  " + spacer_char)
+    puts pastel.bold(border)
+  end
+
+  def print_alert(string)
+    pastel = Pastel.new
+    start_char = "="
+    spacer_char = "!"
+    border_length = string.length + 4
+    border = start_char + Array.new(border_length, spacer_char).join + start_char
+    # puts border
+    puts pastel.on_yellow.bold(spacer_char + "  " + string + "  " + spacer_char)
+    # puts border
   end
 
   def characters_menu
-    puts "Characters"
+    print_page_title("Characters")
   end
 
   def comics_menu
-    puts "Comics"
+    print_page_title("Comics")
   end
 
   def exit_menu
@@ -56,11 +67,12 @@ class CommandLineInterface
   end
 
   def back_menu(creator = nil)
-    puts "Stay tuned, True Believers!"
+    puts Pastel.new.red("<-- Stay tuned, True Believers!  <--")
   end
 
   def main_loop
-    marvel_cool_text("MARVEL COMICS")
+    marvel_cool_text("MARVEL")
+    marvel_cool_text("COMICS")
 
     answer = ""
     until answer == :exit_menu

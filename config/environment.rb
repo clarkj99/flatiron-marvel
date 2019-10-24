@@ -21,6 +21,6 @@ ActiveRecord::Base.establish_connection(
   :database => "./db/marvel.sqlite3",
 )
 #Set to  0 or 1 to control SQL logging to console
-ActiveRecord::Base.logger.level = 1
+ActiveRecord::Base.logger = nil
 
 require_all "app"

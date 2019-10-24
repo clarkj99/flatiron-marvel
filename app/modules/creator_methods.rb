@@ -48,11 +48,11 @@ module CreatorMethods
   end
 
   def creators_by_name
-    print_page_title("Find a Creator by Name")
+    print_page_title("Search for Creators by Name")
   end
 
   def creators_by_id
-    print_page_title("Find a Creator by ID")
+    print_page_title("Search for Creators by ID")
 
     prompt = TTY::Prompt.new
     id = prompt.ask("Provide number in range: 1-13924?") { |id| id.in("1-13924") }
@@ -63,20 +63,20 @@ module CreatorMethods
       prompt = TTY::Prompt.new
 
       until answer == :back_menu
-        puts " Creator ##{creator["id"]}: #{creator["full_name"]}"
+        print_page_title("Creator ##{creator["id"]}: #{creator["full_name"]}")
         puts " Number of comics: " + creator.comics.count.to_s
         puts " Number of characters: " + Creator.find(id).characters.count.to_s
 
         answer = prompt.select("Choose your destiny?") do |menu|
-          menu.choice "List the comics by #{creator["full_name"]}", :creator_comics_list
-          menu.choice "List the characters by #{creator["full_name"]}", :creator_characters_list
+          menu.choice "List the comics related to #{creator["full_name"]}", :creator_comics_list
+          menu.choice "List the characters related to #{creator["full_name"]}", :creator_characters_list
           menu.choice "Back", :back_menu
         end
 
         self.send(answer, creator)
       end
     else
-      puts "Creator id # #{id} was not found!!!!"
+      print_alert("Creator id ##{id} was not found!")
     end
   end
 end
