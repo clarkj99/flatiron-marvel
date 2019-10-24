@@ -6,6 +6,8 @@ module CharacterMethods
     until answer == :back_menu
       print_page_title("Characters")
       puts "\n" + "The total number of Characters in the database: " + Character.count.to_s
+      puts print_character_with_most_comics
+
       answer = prompt.select("\n" + "What about the Characters?") do |menu|
         menu.choice "List the Characters!", :characters_list
         menu.choice "Search for Characters by name", :characters_by_name
@@ -14,6 +16,12 @@ module CharacterMethods
       end
       send(answer)
     end
+  end
+
+  def print_character_with_most_comics
+    result = CharacterComic.all.group(:character_id).count.max_by { |k, v| v }
+    character = Character.find_by_id(result[0])
+    puts "Character with most titles: " + formatted_character(character) + "  -  " + result[1].to_s + " titles\n"
   end
 
   def characters_list

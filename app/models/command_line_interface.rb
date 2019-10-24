@@ -59,15 +59,15 @@ class CommandLineInterface
   end
 
   def formatted_creator(creator)
-    creator["id"].to_s + "  " + creator["full_name"]
+    "ID: " + creator["id"].to_s + "  Name: " + creator["full_name"]
   end
 
   def formatted_comic(comic)
-    comic["id"].to_s + "  Title: " + comic["title"] + " / Issue #: " + comic["issue_number"].to_s + " / " + comic["page_count"].to_s + " pages" + " / Costs: $" + comic["price"].to_s
+    "ID: " + comic["id"].to_s + "  Title: " + comic["title"] + " / Issue #: " + comic["issue_number"].to_s + " / " + comic["page_count"].to_s + " pages" + " / Costs: $" + comic["price"].to_s
   end
 
   def formatted_character(character)
-    character["id"].to_s + "  " + character["name"] + ": " + character["description"]
+    "ID: " + character["id"].to_s + "  Name: " + character["name"] + ": " + character["description"]
   end
 
   def exit_menu

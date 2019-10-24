@@ -6,6 +6,8 @@ module CreatorMethods
     until answer == :back_menu
       print_page_title("Creators")
       puts "\n" + "The total number of Creators in the database: " + Creator.count.to_s
+      puts print_creator_with_most_comics
+
       answer = prompt.select("\n" + "What about the Creators?") do |menu|
         menu.choice "List the Creators!", :creators_list
         menu.choice "Search for Creators by ID", :creators_by_id
@@ -14,6 +16,12 @@ module CreatorMethods
       end
       send(answer)
     end
+  end
+
+  def print_creator_with_most_comics
+    result = ComicCreator.all.group(:creator_id).count.max_by { |k, v| v }
+    creator = Creator.find_by_id(result[0])
+    puts "Creater with most titles: " + formatted_creator(creator) + "  -  " + result[1].to_s + " titles\n"
   end
 
   def creators_list
@@ -40,15 +48,15 @@ module CreatorMethods
     print_page_title("List the Creator's Comics")
 
     data = creator.comics.order("title").inject("") do |string, comic|
-      string = string + comic["id"].to_s + "  " + comic["title"] + " " + comic["issue_number"].to_s + " " + comic["page_count"].to_s + " pages" + " $" + comic["price"].to_s + "\n"
+      string = string + formatted_comic(comic) + "\n"
     end
 
     show_pager(data)
   end
 
-  def creators_by_name
-    print_page_title("Find a Creator by Name")
-  end
+  # def creators_by_name
+  #   print_page_title("Find a Creator by Name")
+  # end
 
   def creators_by_id
     print_page_title("Find a Creator by ID")

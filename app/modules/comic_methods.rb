@@ -6,6 +6,10 @@ module ComicMethods
     until answer == :back_menu
       print_page_title("Comics")
       puts "\n" + "The total number of Comics in the database: " + Comic.count.to_s
+      puts print_comic_with_most_characters
+      puts print_comic_with_longest_name
+      puts print_comic_with_largest_price
+
       answer = prompt.select("\n" + "What about the Comics?") do |menu|
         menu.choice "List the Comics!", :comics_list
         menu.choice "Search for Comics by ID", :comics_by_id
@@ -14,6 +18,22 @@ module ComicMethods
       end
       send(answer)
     end
+  end
+
+  def print_comic_with_most_characters
+    result = CharacterComic.all.group(:comic_id).count.max_by { |k, v| v }
+    comic = Comic.find_by_id(result[0])
+    puts "Comic with most characters: " + formatted_comic(comic) + "  -  " + result[1].to_s + " characters\n"
+  end
+
+  def print_comic_with_longest_name
+    result = Comic.all.max_by { |k, v| k[:title].length }
+    puts "Comic with longest name: " + formatted_comic(result) + "\n"
+  end
+
+  def print_comic_with_largest_price
+    result = Comic.all.max_by { |k, v| k[:price] }
+    puts "Comic with largest price: " + formatted_comic(result) + "\n"
   end
 
   def list_comics_by_chunk(start, chunk_size)
