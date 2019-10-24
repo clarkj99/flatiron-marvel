@@ -3,9 +3,11 @@ require "tty-font"
 require "tty-reader"
 require "tty-prompt"
 require_relative "../modules/creator_methods"
+require_relative "../modules/comic_methods"
 
 class CommandLineInterface
   include CreatorMethods
+  include ComicMethods
 
   def marvel_cool_text(string)
     pastel = Pastel.new
@@ -54,12 +56,20 @@ class CommandLineInterface
     # puts border
   end
 
-  def characters_menu
-    print_page_title("Characters")
+  def formatted_creator(creator)
+    creator["id"].to_s + "  " + creator["full_name"]
   end
 
-  def comics_menu
-    print_page_title("Comics")
+  def formatted_comic(comic)
+    comic["id"].to_s + "  " + comic["title"] + " " + comic["issue_number"].to_s + " " + comic["page_count"].to_s + " pages" + " $" + comic["price"].to_s
+  end
+
+  def formatted_character(character)
+    character["id"].to_s + "  " + character["name"] + ": " + character["description"]
+  end
+
+  def characters_menu
+    print_page_title("Characters")
   end
 
   def exit_menu

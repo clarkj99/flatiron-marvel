@@ -1,15 +1,14 @@
 module CreatorMethods
   def creators_menu
-    print_page_title("Creators")
-    puts "The total number of Creators in the database: " + Creator.count.to_s
-
     answer = ""
     prompt = TTY::Prompt.new
 
     until answer == :back_menu
+      print_page_title("Creators")
+      puts "The total number of Creators in the database: " + Creator.count.to_s
       answer = prompt.select("Choose your destiny?") do |menu|
         menu.choice "List the Creators!", :creators_list
-        menu.choice "Search for Creators  by ID", :creators_by_id
+        menu.choice "Search for Creators by ID", :creators_by_id
         # menu.choice "Search for Creators  by Name", :creators_by_name
         menu.choice "Back", :back_menu
       end
@@ -21,7 +20,7 @@ module CreatorMethods
     print_page_title("List the Creators")
 
     data = Creator.all.inject("") do |string, creator|
-      string = string + creator["id"].to_s + "  " + creator["full_name"] + "\n"
+      string = string + formatted_creator(creator) + "\n"
     end
 
     show_pager(data)
@@ -31,7 +30,7 @@ module CreatorMethods
     print_page_title("List the Creator's Characters")
 
     data = creator.characters.inject("") do |string, character|
-      string = string + character["id"].to_s + "  " + character["name"] + ": " + character["description"] + "\n"
+      string = string + formatted_character(character) + "\n"
     end
 
     show_pager(data)
@@ -41,7 +40,7 @@ module CreatorMethods
     print_page_title("List the Creator's Comics")
 
     data = creator.comics.inject("") do |string, comic|
-      string = string + comic["id"].to_s + "  " + comic["title"] + " " + comic["issue_number"].to_s + " " + comic["page_count"].to_s + " pages" + " $" + comic["price"].to_s + "\n"
+      string = string + formatted_comic(comic) + "\n"
     end
 
     show_pager(data)
