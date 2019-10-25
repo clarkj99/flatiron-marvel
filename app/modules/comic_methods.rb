@@ -38,11 +38,12 @@ module ComicMethods
 
   def list_comics_by_chunk(start, chunk_size)
     print_page_title("List the Comics from #{start.to_s} to #{(start + chunk_size - 1).to_s}")
-
+    spinner = TTY::Spinner.new(":spinner Loading ...", format: :bouncing_ball)
+    spinner.auto_spin
     data = Comic.all.offset(start).limit(chunk_size).order("title").inject("") do |string, comic|
       string = string + formatted_comic(comic) + "\n"
     end
-
+    spinner.stop
     show_pager(data)
   end
 
@@ -72,21 +73,24 @@ module ComicMethods
 
   def comic_characters_list(comic)
     print_page_title("List the Comic's Characters")
-
+    spinner = TTY::Spinner.new(":spinner Loading ...", format: :bouncing_ball)
+    spinner.auto_spin
     data = comic.characters.order("name").inject("") do |string, character|
       string = string + formatted_character(character) + "\n"
     end
-
+    spinner.stop
     show_pager(data)
   end
 
   def comic_creators_list(comic)
     print_page_title("List the Comic's Creators")
+    spinner = TTY::Spinner.new(":spinner Loading ...", format: :bouncing_ball)
+    spinner.auto_spin
 
     data = comic.creators.inject("") do |string, creator|
       string = string + formatted_creator(creator) + "\n"
     end
-
+    spinner.stop
     show_pager(data)
   end
 

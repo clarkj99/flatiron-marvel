@@ -1,4 +1,4 @@
-class Comic < ActiveRecord::Base
+class Comic < ApplicationRecord
   has_many :comic_creators
   has_many :creators, through: :comic_creators
 

@@ -10,11 +10,11 @@ gem 'pry'
 
 gem 'tty-pager'
 gem 'tty-table'
-gem  'tty-prompt'
+gem 'tty-prompt'
 gem 'tty-font'
 gem 'pastel'
 gem 'tty-cursor'
 gem 'tty-screen'
 gem 'tty-reader'
 
-gem "table_print"
+gem 'tty-spinner'

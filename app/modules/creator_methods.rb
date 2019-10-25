@@ -26,31 +26,34 @@ module CreatorMethods
 
   def creators_list
     print_page_title("List the Creators")
-
+    spinner = TTY::Spinner.new(":spinner Loading ...", format: :bouncing_ball)
+    spinner.auto_spin
     data = Creator.all.inject("") do |string, creator|
       string = string + creator["id"].to_s + "  " + creator["full_name"] + "\n"
     end
-
+    spinner.stop
     show_pager(data)
   end
 
   def creator_characters_list(creator)
     print_page_title("List the Creator's Characters")
-
+    spinner = TTY::Spinner.new(":spinner Loading ...", format: :bouncing_ball)
+    spinner.auto_spin
     data = creator.characters.order("name").inject("") do |string, character|
       string = string + character["id"].to_s + "  " + character["name"] + ": " + character["description"] + "\n"
     end
-
+    spinner.stop
     show_pager(data)
   end
 
   def creator_comics_list(creator)
     print_page_title("List the Creator's Comics")
-
+    spinner = TTY::Spinner.new(":spinner Loading ...", format: :bouncing_ball)
+    spinner.auto_spin
     data = creator.comics.order("title").inject("") do |string, comic|
       string = string + formatted_comic(comic) + "\n"
     end
-
+    spinner.stop
     show_pager(data)
   end
 

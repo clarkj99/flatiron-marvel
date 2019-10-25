@@ -1,4 +1,4 @@
-class Character < ActiveRecord::Base
+class Character < ApplicationRecord
   has_many :character_comics
   has_many :comics, through: :character_comics
 

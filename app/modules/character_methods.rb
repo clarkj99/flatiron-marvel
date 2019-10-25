@@ -26,31 +26,34 @@ module CharacterMethods
 
   def characters_list
     print_page_title("List the Characters")
-
+    spinner = TTY::Spinner.new(":spinner Loading ...", format: :bouncing_ball)
+    spinner.auto_spin
     data = Character.all.order("name").inject("") do |string, character|
       string = string + formatted_character(character) + "\n"
     end
-
+    spinner.stop
     show_pager(data)
   end
 
   def character_creators_list(character)
     print_page_title("List the Character's Creators")
-
+    spinner = TTY::Spinner.new(":spinner Loading ...", format: :bouncing_ball)
+    spinner.auto_spin
     data = character.creators.inject("") do |string, creator|
       string = string + formatted_creator(creator) + "\n"
     end
-
+    spinner.stop
     show_pager(data)
   end
 
   def character_comics_list(character)
     print_page_title("List the Character's Comics")
-
+    spinner = TTY::Spinner.new(":spinner Loading ...", format: :bouncing_ball)
+    spinner.auto_spin
     data = character.comics.order("title").inject("") do |string, comic|
       string = string + formatted_comic(comic) + "\n"
     end
-
+    spinner.stop
     show_pager(data)
   end
 

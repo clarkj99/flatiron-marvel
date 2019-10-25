@@ -1,7 +1,3 @@
-require "pastel"
-require "tty-font"
-require "tty-reader"
-require "tty-prompt"
 require_relative "../modules/creator_methods"
 require_relative "../modules/comic_methods"
 require_relative "../modules/character_methods"

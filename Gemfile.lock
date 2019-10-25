@@ -61,7 +61,6 @@ GEM
       unicode-display_width (~> 1.5)
       unicode_utils (~> 1.4)
     strings-ansi (0.1.0)
-    table_print (1.5.6)
     thread_safe (0.3.6)
     tilt (2.0.10)
     tty-color (0.5.0)
@@ -80,6 +79,8 @@ GEM
       tty-screen (~> 0.7)
       wisper (~> 2.0.0)
     tty-screen (0.7.0)
+    tty-spinner (0.9.1)
+      tty-cursor (~> 0.7)
     tty-table (0.11.0)
       equatable (~> 0.6)
       necromancer (~> 0.5)
@@ -108,13 +109,13 @@ DEPENDENCIES
   rest-client
   sinatra-activerecord
   sqlite3
-  table_print
   tty-cursor
   tty-font
   tty-pager
   tty-prompt
   tty-reader
   tty-screen
+  tty-spinner
   tty-table
 
 BUNDLED WITH
