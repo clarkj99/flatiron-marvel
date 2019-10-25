@@ -7,6 +7,12 @@ class CommandLineInterface
   include ComicMethods
   include CharacterMethods
 
+  def print_captain_america
+    pastel = Pastel.new
+    file = File.join(File.dirname(__FILE__), "../../lib/banner.txt")
+    puts pastel.red(File.read(file))
+  end
+
   def marvel_cool_text(string)
     pastel = Pastel.new
     font = TTY::Font.new(:doom)
@@ -75,8 +81,9 @@ class CommandLineInterface
   end
 
   def main_loop
-    marvel_cool_text("MARVEL")
-    marvel_cool_text("COMICS")
+    print_captain_america
+    marvel_cool_text("  MARVEL")
+    marvel_cool_text("  COMICS")
 
     answer = ""
     until answer == :exit_menu
