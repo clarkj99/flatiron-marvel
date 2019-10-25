@@ -16,3 +16,5 @@ gem 'pastel'
 gem 'tty-cursor'
 gem 'tty-screen'
 gem 'tty-reader'
+
+gem "table_print"
