@@ -118,7 +118,7 @@ module ComicMethods
     print_page_title("Search for Comics by ID")
 
     prompt = TTY::Prompt.new
-    id = prompt.ask("Provide number in range: 1-2045554?") { |id| id.in("1-2045554") }
+    id = prompt.ask("Provide number in range: 1-84448?") { |id| id.in("1-84448") }
     comic = Comic.find_by_id(id)
     # puts "Looking for Comic(#{id})"
     if comic != nil

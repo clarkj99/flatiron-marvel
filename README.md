@@ -19,6 +19,8 @@ CONFIG = {
  bundle install
  rake DB:SEED 
  ```
+ Building the seed file can take a long time.  Like 8 hours. So maybe catch up on the Matrix Trilogy while you wait.
+ 
  *Note: to disable AcitveRecord Logging, add `ActiveRecord::Base.logger = nil` to your "./config/environment.rb"*
 
 When ready to run, just `ruby marvel.rb`.
