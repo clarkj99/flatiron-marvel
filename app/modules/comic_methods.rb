@@ -3,6 +3,7 @@ module ComicMethods
     answer = ""
     prompt = TTY::Prompt.new
 
+    #Opens comics menu when comics is chosen from starting menu
     until answer == :back_menu
       print_page_title("Comics")
       puts "\n" + "The total number of Comics in the database: " + Comic.count.to_s

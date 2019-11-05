@@ -3,6 +3,7 @@ module CreatorMethods
     answer = ""
     prompt = TTY::Prompt.new
 
+    #Opens menu when creator is chosen from the starting menu
     until answer == :back_menu
       print_page_title("Creators")
       puts "\n" + "The total number of Creators in the database: " + Creator.count.to_s

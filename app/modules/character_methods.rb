@@ -3,6 +3,7 @@ module CharacterMethods
     answer = ""
     prompt = TTY::Prompt.new
 
+    #opens characters menu when characters is chosen from staring menu
     until answer == :back_menu
       print_page_title("Characters")
       puts "\n" + "The total number of Characters in the database: " + Character.count.to_s
